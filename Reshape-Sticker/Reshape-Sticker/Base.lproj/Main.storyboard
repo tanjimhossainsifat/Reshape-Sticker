@@ -30,7 +30,10 @@
                                         <constraints>
                                             <constraint firstAttribute="width" constant="70" id="Qcb-Bo-6Ot"/>
                                         </constraints>
-                                        <state key="normal" title="Transform"/>
+                                        <state key="normal" title="Distort"/>
+                                        <connections>
+                                            <action selector="onButtonDistort:" destination="BYZ-38-t0r" eventType="touchUpInside" id="qlP-jy-bLD"/>
+                                        </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="LbB-nz-FNf" userLabel="Rotate">
                                         <rect key="frame" x="100" y="0.0" width="45" height="60"/>
@@ -38,6 +41,9 @@
                                             <constraint firstAttribute="width" constant="45" id="gHa-Bm-qiu"/>
                                         </constraints>
                                         <state key="normal" title="Rotate"/>
+                                        <connections>
+                                            <action selector="onButtonRotate:" destination="BYZ-38-t0r" eventType="touchUpInside" id="vN8-hg-PTe"/>
+                                        </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="aXY-xI-piD" userLabel="Scale">
                                         <rect key="frame" x="165" y="0.0" width="40" height="60"/>
@@ -45,10 +51,16 @@
                                             <constraint firstAttribute="width" constant="40" id="UpC-Wy-Rpn"/>
                                         </constraints>
                                         <state key="normal" title="Scale"/>
+                                        <connections>
+                                            <action selector="onButtonScale:" destination="BYZ-38-t0r" eventType="touchUpInside" id="0am-eS-U2C"/>
+                                        </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dtC-Op-4tU" userLabel="Save">
                                         <rect key="frame" x="235" y="0.0" width="130" height="60"/>
                                         <state key="normal" title="Save"/>
+                                        <connections>
+                                            <action selector="onButtonSave:" destination="BYZ-38-t0r" eventType="touchUpInside" id="9pe-I2-eOb"/>
+                                        </connections>
                                     </button>
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -82,6 +94,14 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
+                    <connections>
+                        <outlet property="buttonView" destination="D9Y-fR-awp" id="bAD-Y6-Kp7"/>
+                        <outlet property="distortButton" destination="Rdk-de-TiM" id="BbD-nH-AR4"/>
+                        <outlet property="mainView" destination="mjZ-Xn-rxy" id="BZ6-5P-hgX"/>
+                        <outlet property="rotateButton" destination="LbB-nz-FNf" id="vTk-Om-Naa"/>
+                        <outlet property="saveButton" destination="dtC-Op-4tU" id="Htn-aA-OvE"/>
+                        <outlet property="scaleButton" destination="aXY-xI-piD" id="ujQ-ki-Go0"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>

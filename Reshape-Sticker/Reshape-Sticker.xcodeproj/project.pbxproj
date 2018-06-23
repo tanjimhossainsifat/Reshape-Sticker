@@ -13,6 +13,8 @@
 		3B01C0CB20DEA9DB00CDD17B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3B01C0CA20DEA9DB00CDD17B /* Assets.xcassets */; };
 		3B01C0CE20DEA9DB00CDD17B /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3B01C0CC20DEA9DB00CDD17B /* LaunchScreen.storyboard */; };
 		3B01C0D120DEA9DB00CDD17B /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B01C0D020DEA9DB00CDD17B /* main.m */; };
+		3BF86C3320DEB07300A66559 /* BackgroundView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3BF86C3220DEB07300A66559 /* BackgroundView.m */; };
+		3BF86C3620DEB0A000A66559 /* StickerImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3BF86C3520DEB0A000A66559 /* StickerImageView.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -26,6 +28,10 @@
 		3B01C0CD20DEA9DB00CDD17B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		3B01C0CF20DEA9DB00CDD17B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		3B01C0D020DEA9DB00CDD17B /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		3BF86C3120DEB07300A66559 /* BackgroundView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BackgroundView.h; sourceTree = "<group>"; };
+		3BF86C3220DEB07300A66559 /* BackgroundView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BackgroundView.m; sourceTree = "<group>"; };
+		3BF86C3420DEB0A000A66559 /* StickerImageView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = StickerImageView.h; sourceTree = "<group>"; };
+		3BF86C3520DEB0A000A66559 /* StickerImageView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = StickerImageView.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -62,6 +68,10 @@
 				3B01C0C220DEA9D800CDD17B /* AppDelegate.m */,
 				3B01C0C420DEA9D800CDD17B /* ViewController.h */,
 				3B01C0C520DEA9D800CDD17B /* ViewController.m */,
+				3BF86C3120DEB07300A66559 /* BackgroundView.h */,
+				3BF86C3220DEB07300A66559 /* BackgroundView.m */,
+				3BF86C3420DEB0A000A66559 /* StickerImageView.h */,
+				3BF86C3520DEB0A000A66559 /* StickerImageView.m */,
 				3B01C0C720DEA9D800CDD17B /* Main.storyboard */,
 				3B01C0CA20DEA9DB00CDD17B /* Assets.xcassets */,
 				3B01C0CC20DEA9DB00CDD17B /* LaunchScreen.storyboard */,
@@ -143,7 +153,9 @@
 			files = (
 				3B01C0C620DEA9D800CDD17B /* ViewController.m in Sources */,
 				3B01C0D120DEA9DB00CDD17B /* main.m in Sources */,
+				3BF86C3320DEB07300A66559 /* BackgroundView.m in Sources */,
 				3B01C0C320DEA9D800CDD17B /* AppDelegate.m in Sources */,
+				3BF86C3620DEB0A000A66559 /* StickerImageView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
