@@ -205,8 +205,9 @@
     
     if(stickerImageView.operationType == Distortion && self.shouldDistort)
     {
-        
-        self.distortionTransform = CGAffineTransformConcat(self.distortionTransform, CGAffineTransformMake(1,0.002,0.0,1,0,0));
+        CGPoint vector = CGPointMake(point.x-prevPoint.x, point.y-prevPoint.y);
+
+        self.distortionTransform = CGAffineTransformConcat(self.distortionTransform, CGAffineTransformMake(1,0,0,1,vector.x,vector.y));
         stickerImageView.transform = self.distortionTransform;
         stickerImageView.transformSticker = self.distortionTransform;
         [stickerImageView updateCorners];
@@ -229,7 +230,7 @@
         //        CGPoint scaleFactor1 = CGPointMake(fabs(vector2.x/vector1.x), fabs(vector2.y/vector1.y));
         //        self.scaleTransform = CGAffineTransformScale(self.scaleTransform, scaleFactor.x, scaleFactor.y);
         //        self.scaleTransform = CGAffineTransformConcat(self.scaleTransform, CGAffineTransformMakeScale(scaleFactor,scaleFactor));
-        self.scaleTransform = CGAffineTransformScale(self.scaleTransform, 1, scaleFactor);
+        self.scaleTransform = CGAffineTransformScale(self.scaleTransform, scaleFactor, scaleFactor);
         
         //        self.scaleTransform = CGAffineTransformConcat(self.scaleTransform, CGAffineTransformMakeTranslation(point.x-prevPoint.x, point.y - prevPoint.y));
         
