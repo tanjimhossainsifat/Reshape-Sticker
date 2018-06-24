@@ -207,7 +207,7 @@
     {
         CGPoint vector = CGPointMake(point.x-prevPoint.x, point.y-prevPoint.y);
 
-        self.distortionTransform = CGAffineTransformConcat(self.distortionTransform, CGAffineTransformMake(1,0,0,1,vector.x,vector.y));
+        self.distortionTransform = CGAffineTransformConcat(self.distortionTransform, CGAffineTransformMake(1,0.003,0.003,1,0,0));
         stickerImageView.transform = self.distortionTransform;
         stickerImageView.transformSticker = self.distortionTransform;
         [stickerImageView updateCorners];
@@ -221,18 +221,34 @@
     
     if(stickerImageView.operationType == Scale && self.shouldScale)
     {
+        static int pos = -1;
+        for(int i = 0; i<4; i++) {
+            if(CGRectContainsPoint(centerSelectRect[i], prevPoint)) {
+                
+                pos = i;
+                break;
+            }
+        }
         
         CGPoint vector1 = CGPointMake(prevPoint.x-stickerImageView.centerPoint.x, prevPoint.y-stickerImageView.centerPoint.y);
         CGPoint vector2 = CGPointMake(point.x-stickerImageView.centerPoint.x, point.y-stickerImageView.centerPoint.y);
         float len1 = sqrtf(vector1.x*vector1.x + vector1.y*vector1.y);
         float len2 = sqrtf(vector2.x*vector2.x + vector2.y*vector2.y);
         float scaleFactor = len2/len1;
-        //        CGPoint scaleFactor1 = CGPointMake(fabs(vector2.x/vector1.x), fabs(vector2.y/vector1.y));
-        //        self.scaleTransform = CGAffineTransformScale(self.scaleTransform, scaleFactor.x, scaleFactor.y);
-        //        self.scaleTransform = CGAffineTransformConcat(self.scaleTransform, CGAffineTransformMakeScale(scaleFactor,scaleFactor));
-        self.scaleTransform = CGAffineTransformScale(self.scaleTransform, scaleFactor, scaleFactor);
         
-        //        self.scaleTransform = CGAffineTransformConcat(self.scaleTransform, CGAffineTransformMakeTranslation(point.x-prevPoint.x, point.y - prevPoint.y));
+        if(pos == 0) {
+            self.scaleTransform = CGAffineTransformScale(self.scaleTransform, scaleFactor, 1);
+        }
+        else if(pos == 1) {
+            self.scaleTransform = CGAffineTransformScale(self.scaleTransform, 1,scaleFactor);
+        }
+        else if(pos == 2) {
+            self.scaleTransform = CGAffineTransformScale(self.scaleTransform, scaleFactor, 1);
+            
+        }
+        else if(pos == 3) {
+            self.scaleTransform = CGAffineTransformScale(self.scaleTransform, 1, scaleFactor);
+        }
         
         stickerImageView.transform = self.scaleTransform;
         stickerImageView.transformSticker = self.scaleTransform;
