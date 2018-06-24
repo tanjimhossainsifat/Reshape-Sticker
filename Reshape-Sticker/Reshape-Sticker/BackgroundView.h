@@ -15,10 +15,17 @@
 @property (readwrite)   CGContextRef        context;
 @property (retain)      StickerImageView*   stickerImageView;
 
-@property (readwrite)   CGAffineTransform   rotationTransform;
+
 @property (readwrite)   CGAffineTransform   translationTransform;
+@property (readwrite)   CGAffineTransform   distortionTransform;
+@property (readwrite)   CGAffineTransform   rotationTransform;
 @property (readwrite)   CGAffineTransform   scaleTransform;
 
 -(void) viewJustLoaded;
+
+-(void) distort;
+-(void) rotate;
+-(void) scale;
+-(void) move;
 
 @end
