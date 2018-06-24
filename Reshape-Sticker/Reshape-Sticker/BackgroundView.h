@@ -21,11 +21,17 @@
 @property (readwrite)   CGAffineTransform   rotationTransform;
 @property (readwrite)   CGAffineTransform   scaleTransform;
 
+@property (assign)      BOOL                shouldTranslate;
+@property (assign)      BOOL                shouldRotate;
+@property (assign)      BOOL                shouldScale;
+@property (assign)      BOOL                shouldDistort;
+
 -(void) viewJustLoaded;
 
 -(void) distort;
 -(void) rotate;
 -(void) scale;
 -(void) move;
+-(void) save;
 
 @end

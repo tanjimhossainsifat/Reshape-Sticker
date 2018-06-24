@@ -13,7 +13,8 @@ typedef enum
     Translation = 0,
     Distortion  = 1,
     Scale       = 2,
-    Rotation    = 3
+    Rotation    = 3,
+    None     = 4
 }OperationType;
 
 @interface StickerImageView : UIImageView

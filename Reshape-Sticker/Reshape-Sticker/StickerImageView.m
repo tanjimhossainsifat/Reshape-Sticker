@@ -87,6 +87,8 @@
 -(void)drawFrameWithContext:(CGContextRef)context
 {
     
+    if(self.operationType == None)
+        return;
     
     for (int i=0; i<4; i++)
     {
@@ -133,7 +135,7 @@
         [pointImage drawAtPoint:CGPointMake(centerRightPoint.x-6, centerRightPoint.y-6)];
         [pointImage drawAtPoint:CGPointMake(centerBottomPoint.x-6, centerBottomPoint.y-6)];
     }
-    else {
+    else if(self.operationType == Distortion || self.operationType == Rotation) {
         
         [pointImage drawAtPoint:CGPointMake(leftTopPoint.x-6, leftTopPoint.y-6)];
         [pointImage drawAtPoint:CGPointMake(rightTopPoint.x-6, rightTopPoint.y-6)];
