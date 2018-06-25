@@ -9,12 +9,18 @@
 #import "BackgroundView.h"
 
 @implementation BackgroundView
+{
+    CGPoint cornerSelectPoint[4];
+}
 @synthesize context;
 @synthesize stickerImageView;
 @synthesize distortionTransform;
 @synthesize rotationTransform;
 @synthesize translationTransform;
 @synthesize scaleTransform;
+
+
+
 
 -(BOOL)isMultipleTouchEnabled
 {
@@ -205,12 +211,45 @@
     
     if(stickerImageView.operationType == Distortion && self.shouldDistort)
     {
-        CGPoint vector = CGPointMake(point.x-prevPoint.x, point.y-prevPoint.y);
-
-        self.distortionTransform = CGAffineTransformConcat(self.distortionTransform, CGAffineTransformMake(1,0.003,0.003,1,0,0));
-        stickerImageView.transform = self.distortionTransform;
-        stickerImageView.transformSticker = self.distortionTransform;
-        [stickerImageView updateCorners];
+        
+        static int posDistort = -1;
+        for(int i = 0; i<4; i++) {
+            if(CGRectContainsPoint(cornerSelectRect[i], prevPoint)) {
+                
+                posDistort = i;
+                break;
+            }
+        }
+        
+        cornerSelectPoint[0] = stickerImageView.leftTopPoint;
+        cornerSelectPoint[1] = stickerImageView.rightTopPoint;
+        cornerSelectPoint[2] = stickerImageView.rightBottomPoint;
+        cornerSelectPoint[3] = stickerImageView.leftBottomPoint;
+        
+        cornerSelectPoint[posDistort] = point;
+        
+//        CIImage *coreImage = [CIImage imageWithData:UIImagePNGRepresentation(stickerImageView.image)];
+//
+//        CIFilter *perspectiveTransformation = [CIFilter filterWithName:@"CIPerspectiveTransform"];
+//        [perspectiveTransformation setValue:[CIVector vectorWithCGPoint:cornerSelectPoint[0]] forKey:@"inputTopLeft"];
+//        [perspectiveTransformation setValue:[CIVector vectorWithCGPoint:cornerSelectPoint[1]] forKey:@"inputTopRight"];
+//        [perspectiveTransformation setValue:[CIVector vectorWithCGPoint:cornerSelectPoint[2]] forKey:@"inputBottomRight"];
+//        [perspectiveTransformation setValue:[CIVector vectorWithCGPoint:cornerSelectPoint[3]] forKey:@"inputBottomLeft"];
+//        [perspectiveTransformation setValue:coreImage forKey:kCIInputImageKey];
+//
+//        CIImage *resultImage = [perspectiveTransformation outputImage];
+//        CIContext *ciContext = [CIContext contextWithOptions:nil];
+//        CGImageRef cgImageRef = [ciContext createCGImage:resultImage fromRect:[resultImage extent]];
+//        UIImage *transformedImage = [UIImage imageWithCGImage:cgImageRef];
+//        CGImageRelease(cgImageRef);
+//
+//        stickerImageView.image = transformedImage;
+//
+//        self.distortionTransform = stickerImageView.transform;
+//
+//        stickerImageView.transform = self.distortionTransform;
+//        stickerImageView.transformSticker = self.distortionTransform;
+//        [stickerImageView updateCorners];
         
         [self setNeedsDisplay];
         return;
@@ -221,11 +260,11 @@
     
     if(stickerImageView.operationType == Scale && self.shouldScale)
     {
-        static int pos = -1;
+        static int posScale = -1;
         for(int i = 0; i<4; i++) {
             if(CGRectContainsPoint(centerSelectRect[i], prevPoint)) {
                 
-                pos = i;
+                posScale = i;
                 break;
             }
         }
@@ -236,19 +275,21 @@
         float len2 = sqrtf(vector2.x*vector2.x + vector2.y*vector2.y);
         float scaleFactor = len2/len1;
         
-        if(pos == 0) {
+        if(posScale == 0) {
             self.scaleTransform = CGAffineTransformScale(self.scaleTransform, scaleFactor, 1);
         }
-        else if(pos == 1) {
+        else if(posScale == 1) {
             self.scaleTransform = CGAffineTransformScale(self.scaleTransform, 1,scaleFactor);
         }
-        else if(pos == 2) {
+        else if(posScale == 2) {
             self.scaleTransform = CGAffineTransformScale(self.scaleTransform, scaleFactor, 1);
             
         }
-        else if(pos == 3) {
+        else if(posScale == 3) {
             self.scaleTransform = CGAffineTransformScale(self.scaleTransform, 1, scaleFactor);
         }
+        
+        
         
         stickerImageView.transform = self.scaleTransform;
         stickerImageView.transformSticker = self.scaleTransform;
@@ -266,6 +307,35 @@
 
 -(void) touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event
 {
+    
+    if(stickerImageView.operationType == Distortion && self.shouldDistort)
+    {
+        
+        CIImage *coreImage = [CIImage imageWithData:UIImagePNGRepresentation(stickerImageView.image)];
+        
+        CIFilter *perspectiveTransformation = [CIFilter filterWithName:@"CIPerspectiveTransform"];
+        [perspectiveTransformation setValue:[CIVector vectorWithCGPoint:cornerSelectPoint[0]] forKey:@"inputTopLeft"];
+        [perspectiveTransformation setValue:[CIVector vectorWithCGPoint:cornerSelectPoint[1]] forKey:@"inputTopRight"];
+        [perspectiveTransformation setValue:[CIVector vectorWithCGPoint:cornerSelectPoint[2]] forKey:@"inputBottomRight"];
+        [perspectiveTransformation setValue:[CIVector vectorWithCGPoint:cornerSelectPoint[3]] forKey:@"inputBottomLeft"];
+        [perspectiveTransformation setValue:coreImage forKey:kCIInputImageKey];
+        
+        CIImage *resultImage = [perspectiveTransformation outputImage];
+        CIContext *ciContext = [CIContext contextWithOptions:nil];
+        CGImageRef cgImageRef = [ciContext createCGImage:resultImage fromRect:[resultImage extent]];
+        UIImage *transformedImage = [UIImage imageWithCGImage:cgImageRef];
+        CGImageRelease(cgImageRef);
+        
+        stickerImageView.image = transformedImage;
+        
+        self.distortionTransform = stickerImageView.transform;
+        
+        stickerImageView.transform = self.distortionTransform;
+        stickerImageView.transformSticker = self.distortionTransform;
+        [stickerImageView updateCorners];
+        
+        
+    }
     self.rotationTransform = stickerImageView.transform;
     self.translationTransform = stickerImageView.transform;
     self.scaleTransform = stickerImageView.transform;
